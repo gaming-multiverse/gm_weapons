@@ -38,7 +38,7 @@ RegisterNetEvent('gm_weapons:server:SetDurability', function()
     end
 
     if weapon.name == 'WEAPON_LASSO' then
-        local dur = (weapon.metadata and weapon.metadata.durability or 100) - 2
+        local dur = (weapon.metadata and weapon.metadata.durability or 100) - Config.lassoDurabilityLoss
         exports.gm_inventory:SetDurability(source, weapon.slot, dur)
     end
 end)

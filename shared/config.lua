@@ -3,6 +3,7 @@ return {
     itemForCleaning = "cleaningkitgun",
     weaponRepairTime = 3000,
     disableSprintWhileAiming = false,
+    lassoDurabilityLoss = 2,
     weaponDamage = {
         -- Melee
         {Name = 'WEAPON_UNARMED', Damage = 5.0, EnableCritical = true},
@@ -28,7 +29,7 @@ return {
         {Name = 'WEAPON_REVOLVER_NAVY_CROSSOVER', Damage = 3.25, EnableCritical = true}, -- 4 Bullets
         {Name = 'WEAPON_REVOLVER_SCHOFIELD', Damage = 1.85, EnableCritical = true}, -- 7 Bullets
         -- Pistols
-        {Name = 'WEAPON_PISTOL_M1899', Damage = 2.85, EnableCritical = true},
+        {Name = 'WEAPON_PISTOL_M1899', Damage = 2.85, EnableCritical = true}, -- 5 Bullets
         {Name = 'WEAPON_PISTOL_MAUSER', Damage = 2.85, EnableCritical = true}, -- 5 Bullets
         {Name = 'WEAPON_PISTOL_SEMIAUTO', Damage = 2.85, EnableCritical = true}, -- 5 Bullets
         {Name = 'WEAPON_PISTOL_VOLCANIC', Damage = 1.00, EnableCritical = true}, -- 8 Bullets
@@ -38,7 +39,7 @@ return {
         -- Rifle
         {Name = 'WEAPON_RIFLE_BOLTACTION', Damage = 2.60 , EnableCritical = true}, -- 3 Bullets
         {Name = 'WEAPON_RIFLE_ELEPHANT', Damage = 2.20, EnableCritical = true}, -- 2 Bullets
-        {Name = 'WEAPON_RIFLE_SPRINGFIELD', Damage = 2.40, EnableCritical = true},
+        {Name = 'WEAPON_RIFLE_SPRINGFIELD', Damage = 2.40, EnableCritical = true}, -- 3 Bullets
         {Name = 'WEAPON_RIFLE_VARMINT', Damage = 0.90, EnableCritical = true},
         -- Repeater
         {Name = 'WEAPON_REPEATER_CARBINE', Damage = 1.40, EnableCritical = true}, -- 7 Bullets
