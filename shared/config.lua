@@ -2,6 +2,7 @@ return {
     itemForRepair = "repairtool",
     itemForCleaning = "cleaningkitgun",
     weaponRepairTime = 3000,
+    disableSprintWhileAiming = false,
     weaponDamage = {
         -- Melee
         {Name = 'WEAPON_UNARMED', Damage = 5.0, EnableCritical = true},

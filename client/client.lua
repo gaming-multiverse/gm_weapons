@@ -189,3 +189,14 @@ CreateThread(function()
         end
     end
 end)
+
+if Config.disableSprintWhileAiming then
+    CreateThread(function()
+        while true do
+            Wait(1)
+            if IsPlayerFreeAiming(PlayerId()) then
+                DisableControlAction(0, 0x8FFC75D6, true)
+            end
+        end
+    end)
+end
