@@ -3,6 +3,21 @@ local Config = require "shared.config"
 local DAMAGE_MODIFIER = {}
 local WEAPON_NAME = {}
 local CRITICAL_HIT = {}
+local throwables = {
+    'weapon_thrown_throwing_knives',
+    'weapon_thrown_tomahawk',
+    'weapon_thrown_tomahawk_ancient',
+    'weapon_thrown_bolas',
+    'weapon_thrown_bolas_hawkmoth',
+    'weapon_thrown_bolas_ironspiked',
+    'weapon_thrown_bolas_intertwined',
+    'weapon_thrown_dynamite',
+    'weapon_thrown_molotov',
+    'weapon_thrown_poisonbottle',
+    'weapon_melee_hatchet',
+    'weapon_melee_hatchet_hunter',
+    'weapon_melee_cleaver'
+}
 
 for k,v in ipairs(Config.weaponDamage) do
     DAMAGE_MODIFIER[GetHashKey(v.Name)] = v.Damage
@@ -24,11 +39,11 @@ local getWeaponStats = function(weaponHash)
 end
 
 local showstats = function()
-    local _, weapon = GetCurrentPedWeapon(cache.ped, true, 0, true)
+    local _, weapon = GetCurrentPedWeapon(PlayerPedId(), true, 0, true)
     if weapon then
         local uiFlowBlock = RequestFlowBlock(joaat("PM_FLOW_WEAPON_INSPECT"))
         local uiContainer = DatabindingAddDataContainerFromPath("" , "ItemInspection")
-        Citizen.InvokeNative(0x46DB71883EE9D5AF, uiContainer, "stats", getWeaponStats(weapon), cache.ped)
+        Citizen.InvokeNative(0x46DB71883EE9D5AF, uiContainer, "stats", getWeaponStats(weapon), PlayerPedId())
         DatabindingAddDataString(uiContainer, "tipText", 'Weapon Information')
         DatabindingAddDataHash(uiContainer, "itemLabel", weapon)
         DatabindingAddDataBool(uiContainer, "Visible", true)
@@ -131,7 +146,7 @@ end)
 CreateThread(function()
 	while true do
 		Wait(500)
-		local ped = cache.ped
+		local ped = PlayerPedId()
 		local _, wep = GetCurrentPedWeapon(ped)
 		if DAMAGE_MODIFIER[wep] ~= nil then
 			Citizen.InvokeNative(0xD77AE48611B7B10A, ped, DAMAGE_MODIFIER[wep])
@@ -143,7 +158,7 @@ end)
 
 CreateThread(function()
     while true do
-        local ped = cache.ped
+        local ped = PlayerPedId()
         local _, wep = GetCurrentPedWeapon(ped)
 
 		for k,v in ipairs(GetActivePlayers()) do
@@ -154,5 +169,23 @@ CreateThread(function()
 		end
 
         Wait(1000)
+    end
+end)
+
+CreateThread(function()
+    while true do
+        Wait(1)
+        local ped = cache.ped
+        if cache.weapon and IsPedShooting(ped) then
+            if cache.weapon == joaat("weapon_lasso") then
+                TriggerServerEvent('gm_weapons:server:SetDurability')
+            end
+            for _, v in pairs(throwables) do
+                local wepHash = joaat(v)
+                if cache.weapon == wepHash then
+                    TriggerServerEvent('gm_weapons:server:RemoveThrowable', v)
+                end
+           end
+        end
     end
 end)

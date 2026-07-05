@@ -26,3 +26,19 @@ RegisterNetEvent("gm_weaponcomp:server:repairWeapon", function()
         )
     end
 end)
+
+RegisterNetEvent('gm_weapons:server:RemoveThrowable', function(hash)
+    local RemoveItem = exports.gm_inventory:RemoveItem(source, hash, 1)
+end)
+
+RegisterNetEvent('gm_weapons:server:SetDurability', function()
+    local weapon = exports.gm_inventory:GetCurrentWeapon(source)
+    if not weapon or not weapon.name then
+        return
+    end
+
+    if weapon.name == 'WEAPON_LASSO' then
+        local dur = (weapon.metadata and weapon.metadata.durability or 100) - 2
+        exports.gm_inventory:SetDurability(source, weapon.slot, dur)
+    end
+end)
